@@ -84,8 +84,7 @@ public class MatterService {
         Msg msg=new Msg();
         ArrayList<matter> matters=new ArrayList<>();
         matters=mattermapper.selectMatterByDepartmentandstatus(department,status);
-        System.out.println(department);
-        System.out.println(status);
+
         if(matters.size()==0){
             msg.setMessage("查询失败！");
             msg.setResult(false);
