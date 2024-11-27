@@ -253,13 +253,20 @@ p {
 
 .clearfix:after {
   clear: both;
-
-
 }
 
 /deep/ .box-card {
   background-color: #FAF9DE;
   border-radius: 20px;
+}
+.el-card {
+  width: 300px; /* 或者您希望的任何固定宽度 */
+  overflow: hidden; /* 或者 auto */
+}
+
+/* 设置悬浮时显示的内容的最大宽度 */
+.text {
+  max-width: 100%; /* 确保不会超出卡片宽度 */
 }
 
 </style>

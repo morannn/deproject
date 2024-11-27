@@ -4,7 +4,8 @@
       
       <div v-if="departmentnum>1" class="column" v-for="(value, index) in department" :key="value.id">
         部门名：{{ value }}(列名为事件状态)
-        <ManagerMainFlow1 ref="flow1" :department="value" :departmentnum="departmentnum"></ManagerMainFlow1>
+      
+        <ManagerMainFlow1 ref="flow1" :alldepartment="value" :departmentnum="departmentnum"></ManagerMainFlow1>
         <!-- 确保组件ManagerMainFlow已经被导入并注册 -->
       </div>
       <div v-if="departmentnum==1" class="column">

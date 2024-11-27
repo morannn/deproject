@@ -5,7 +5,7 @@
         <div class="mont">
           <div class="crt">
             <p>Welcome</p>
-            <div>看板系统登录界面</div>
+            <div>看板系统注册界面</div>
           </div>
         </div>
         <el-form ref="form" label-width="65px" class="rotp">
@@ -18,20 +18,27 @@
               <el-input prefix-icon="el-icon-lock" v-model.trim="password" show-password placeholder="请输入密码" clearable
                 @keyup.enter.native="keyupTest"></el-input>
             </el-form-item>
+            <el-form-item>
+              <el-input prefix-icon="el-icon-lock" v-model.trim="surepassword" show-password placeholder="请确认密码" clearable
+                @keyup.enter.native="keyupTest"></el-input>
+            </el-form-item>
+            <el-form-item label="部门:" >
+              <el-radio-group v-model.trim="department">
+                <el-radio label="ceshi"></el-radio>
+                <el-radio label="kaifa"></el-radio>
+                <el-radio label="1"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            
 
-            <div class="top_lis">
-              <el-checkbox v-model.trim="checked" @change="stockpile">记住密码</el-checkbox>
-              <router-link to="/forget">
-                <el-link :underline="false">忘记密码</el-link>
-              </router-link>
-            </div>
+            
             <el-form-item style="margin-left: 50px">
-              <el-button type="primary" @click="skip">登录</el-button>
+              <el-button type="primary" @click="skip">注册</el-button>
             </el-form-item>
             <div class="qm_aegi">
-              <span>没有账号？</span>
-              <router-link to="/register">
-                <el-link :underline="false" type="primary">注册账号</el-link>
+              <span>已有账号？</span>
+              <router-link to="/login">
+                <el-link :underline="false" type="primary">登录账号</el-link>
               </router-link>
             </div>
           </div>
@@ -44,10 +51,12 @@
 <script>
 import reques from '@/utils/respone.js'
 export default {
-  name: 'Login',
+  name: 'register',
   data() {
     return {
       text: '',
+      department:'',
+      surepassword:'',
       password: '',
       verification: '',
       checked: false,
@@ -70,26 +79,53 @@ export default {
 
     // 用户表数据调用
     skip() {
+      console.log(this.text)
       console.log(this.password)
-      if (this.password == '' ||this.password==null|| this.text==null || this.text == '') {
-        this.$message.error('账号密码不能为空')
+      console.log(this.surepassword)
+      console.log(this.department)
+      if (this.password == ''|| this.password==null||this.surepassword==null
+          ||this.surepassword==''||this.text==null || this.text == ''
+          ||this.department==''||this.department==null) {
+        this.$message.error('请输入所有信息！')
+        return
+      }
+      if(this.password!=this.surepassword){
+        console.log("mima")
+        this.$message.error('两次输入的密码不一致！')
+        this.text=''
+        this.password=''
+        this.surepassword=''
+        this.department=''
         return
       }
       reques
-        .post('/login/loginBypsd', {
+        .post('/login/register', {
           username: this.text,
           password: this.password
         })
         .then(res => {
           if (res.data.result == true) {
-            
-            this.$store.commit('setMyData', { key: this.text });
-            localStorage.setItem('myDataKey', this.text);
-            this.$message.success('登录成功！')
-            this.$router.replace('./manager')
+            reques
+              .get('/user/register/'+this.text+'/'+this.department )
+              .then(res => {
+                if (res.data.result == true) {
+                  this.$message.success('注册成功！')
+                  this.$router.replace('./login')
 
+                } else {
+                  this.$message.error('注册失败！')
+                }
+              })
+              .catch(error => {
+                this.$message.error('数据错误')
+              })
           } else {
-            this.$message.error('账号密码错误')
+            console.log("cunzia")
+            this.$message.error('用户名已存在！')
+            this.text=''
+            this.password=''
+            this.surepassword=''
+            this.department=''
           }
         })
         .catch(error => {

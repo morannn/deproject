@@ -43,7 +43,7 @@ import axios from "axios";
 import Vue from "vue";
 export const EventBus = new Vue();
 export default {
-  props: ["department", "departmentnum"],
+  props: ["department", "departmentnum","alldepartment"],
   name: "manager-main-flow",
   components: {
     ManagerMainCard,
@@ -132,9 +132,10 @@ export default {
 
       let arr = []
       for (let index = 0; index < this.boxmaxList.length; index++) {
-        const res = await axios.get("/matter/flow/status/" + this.department + "/" + this.boxmaxList[index])
+        const res = await axios.get("/matter/flow/status/" + this.alldepartment + "/" + this.boxmaxList[index])
         this.$set(this.contentList, index, res.data);
       }   
+    
     },
     async fetchContentList1() {
       
