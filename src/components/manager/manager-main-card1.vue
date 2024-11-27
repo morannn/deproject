@@ -1,33 +1,47 @@
 <template>
   <div class="card">
     <el-card>
-      <div :data-id="title.id"  @click="flag = flag == true ? false : true">
-        事件名称：<span>{{ title.mattername }}</span>
-        <br>
-        <div class="text" v-show="isHovered">
-        事件状态：<span>{{ title.matterstatus }}</span>
-        <br>
-        开始时间：<span>{{ title.begintime }}</span>
-        <br>
-        预计时间：<span>{{ title.yujitime }}</span>
-        <br>
-        完成时间：<span>{{ title.endtime }}</span>
-        <br>
-        所属用户名：<span>{{ title.username }}</span>
-        <br>
-        用户部门：<span>{{ title.department }}</span>
-        <br>  
-        <el-button type="info" @click="showEditModal">修改任务</el-button>
-      </div>
+      <div :data-id="title.id"  >
         <el-popconfirm confirm-button-text='确定' cancel-button-text='不用了' icon="el-icon-info" icon-color="red"
           title="确定删除此卡片吗？" @confirm="add(title.id)">
           <el-button style="float: right; padding: 3px 0" class="two el-icon-close" slot="reference"></el-button>
         </el-popconfirm>
-      
+        <br>
+        <div @click="showText(title.id)">
+          事件名称：<span>{{ title.mattername }}</span>
         </div>
+          <br>
+          <div class="text" v-show="isHovered">
+            <div @click="showText(title.id)">
+          事件状态：<span>{{ title.matterstatus }}</span>
+          <br>
+          开始时间：<span>{{ title.begintime }}</span>
+          <br>
+          预计时间：<span>{{ title.yujitime }}</span>
+          <br>
+          完成时间：<span>{{ title.endtime }}</span>
+          <br>
+          所属用户名：<span>{{ title.username }}</span>
+          <br>
+          用户部门：<span>{{ title.department }}</span>
+          <br>  
+            </div>
+          <el-button type="info" @click="showEditModal(title.id)">修改任务</el-button>
+          </div>
+        
+    </div>
         
     </el-card>
-    <el-dialog @close="closefunc" v-if="showModal" :visible.sync="showModal" title="添加任务" width="30%">
+    <el-dialog :visible.sync="showTextModal" title="事件内容" width="30%">
+      <div class="text-container">
+        {{ text }}
+      </div>
+      
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="showTextModal = false">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog @close="closefunc" v-if="showModal" :visible.sync="showModal" title="修改任务" width="30%">
 			<el-form :model="title" :rules="rules" ref="title">
 				<el-form-item label="标题" prop="mattername">
 					<el-input placeholder="请输入事件名称" v-model="dataform.mattername"></el-input>
@@ -62,7 +76,9 @@
 						<el-radio label="1"></el-radio>
 					</el-radio-group>
 				</el-form-item>
-				
+        <el-form-item label="事件内容" prop="content">
+					<el-input type="textarea"  placeholder="请输入事件内容" v-model="dataform.content"></el-input>
+				</el-form-item>
 				
 				<el-form-item>
 					<el-button @click="submitForm('title')" type="primary">修改任务</el-button>
@@ -81,7 +97,7 @@
 import axios from 'axios';
 
 export default {
-  props: ["title"],
+  props: ["title","departmentnum"],
   name: "manager-main-card",
   data() {
     return {
@@ -89,6 +105,8 @@ export default {
       max: false,
       Arrtys: this.Arrty,
       flag: false,
+      text:"",
+      showTextModal: false,
       dataform:{
         id:this.title.id,
         mattername:this.title.mattername,
@@ -97,6 +115,7 @@ export default {
 			  yujitime:this.title.yujitime,
 			  endtime:this.title.endtime,
 			  username:this.title.username,
+        content:'',
 			  department:this.title.department
       },
       cardId:'',
@@ -104,9 +123,26 @@ export default {
     }
   },
   methods: {
-    closefunc(){
+    showText(id) {
+      axios.get('/content/getByid/'+id).then(respone => {
+				this.text=respone.data.data.mattercontent
+				
+        if(respone.data.result==true){
+          this.showTextModal = true; // 显示文本弹窗
+        }
+			})
       
-      this.dataform=this.title
+      
+    },
+    closefunc(){
+      this.dataform.id=this.title.id
+      this.dataform.matterstatus=this.title.matterstatus
+      this.dataform.mattername=this.title.mattername
+      this.dataform.begintime=this.title.begintime
+      this.dataform.yujitime=this.title.yujitime
+      this.dataform.endtime=this.title.endtime
+      this.dataform.username=this.title.username
+      this.dataform.department=this.title.department
     },
     resetForm() {
 			this.dataform.mattername=''
@@ -115,8 +151,8 @@ export default {
 			this.dataform.yujitime='',
 			this.dataform.endtime='',
 			this.dataform.username='',
-			this.dataform.department=''
-      
+			this.dataform.department='',
+      this.dataform.content=''
 		},
     submitForm(formName) {
       
@@ -137,8 +173,15 @@ export default {
 					}).then(respone => {
 						// console.log(respone.data.data);
 						// 将获取的数据传给父组件
-						let str = this.dataform.estimate;
-						this.$emit('respones', respone.data.data, str)
+            axios.post('/content/updateContent',{
+              id:this.dataform.id,
+              mattercontent:this.dataform.content
+            }).then(respone => {
+				      
+              let str = this.dataform.estimate;
+						  this.$emit('respones', respone.data.data, str)
+			      })
+						 
 					})
 					this.$message({
 						type: 'success',
@@ -154,8 +197,27 @@ export default {
     updateCardData(){
 
     },
-    showEditModal() {
-      this.showModal = true;
+    showEditModal(id) {
+      
+      const savedValue = localStorage.getItem('myDataKey2');
+      console.log(savedValue)
+      if(savedValue=="admin"){
+        axios.get('/content/getByid/'+id).then(respone => {
+				  this.dataform.content=respone.data.data.mattercontent
+			  })
+        this.showModal = true;
+      }else{
+        if(this.departmentnum==1){
+          axios.get('/content/getByid/'+id).then(respone => {
+				    this.dataform.content=respone.data.data.mattercontent
+			    })
+          this.showModal = true;
+        }else{
+          this.$message.error('暂时无权限修改！')
+        }
+        
+      }
+      
 
     },
     // 更新任务数据
@@ -181,8 +243,20 @@ export default {
 
     },
     add(val) {
-      console.log(val)
-      this.$emit("remove", val);
+      const savedValue = localStorage.getItem('myDataKey2');
+      console.log(savedValue)
+      if(savedValue=="admin"){
+        this.$emit("remove", val);
+        
+      }else{
+        if(this.departmentnum==1){
+          this.$emit("remove", val);
+        }else{
+          this.$message.error('暂时无权限删除！')
+        }
+        
+      }
+      
     },
     onconfirm() {
       this.visible = false;
@@ -219,10 +293,14 @@ export default {
 
 .two {
   width: 60px;
-  background: #FAF9DE;
+  
   transition: all 0.15s ease;
 }
-
+.text-container {
+  border: 1px solid #DCDFE6; /* 边框颜色 */
+  padding: 10px; /* 内边距 */
+  margin-bottom: 20px; /* 下边距 */
+}
 .el-button {
   border: 0px;
 }

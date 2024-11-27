@@ -26,11 +26,9 @@
               <el-radio-group v-model.trim="department">
                 <el-radio label="ceshi"></el-radio>
                 <el-radio label="kaifa"></el-radio>
-                <el-radio label="1"></el-radio>
+                <el-radio label="admin"></el-radio>
               </el-radio-group>
             </el-form-item>
-            
-
             
             <el-form-item style="margin-left: 50px">
               <el-button type="primary" @click="skip">注册</el-button>
@@ -50,6 +48,7 @@
 
 <script>
 import reques from '@/utils/respone.js'
+import axios from 'axios';
 export default {
   name: 'register',
   data() {
@@ -222,6 +221,7 @@ export default {
         font-size: 40px;
         //background-clip: text;
         color: transparent;
+        height: 150px;
         background-image: linear-gradient(120deg, #30cfd0 0%, #ebbba7 50%, #a3bded 80%);
       }
 
@@ -229,6 +229,7 @@ export default {
         font-size: 50px;
         //background-clip: text;
         color: transparent;
+        height: 150px;
         background-image: linear-gradient(-90deg, #29be0e 0%, #276ace 100%);
       }
     }

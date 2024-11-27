@@ -11,7 +11,7 @@
   </el-tabs>
 </template>
 <script>
-
+import axios from 'axios';
 import ManagerMainFlow1 from "./manager-main-flow1.vue";
 import ManagerMainFlowAll from "./manager-main-flow-all.vue";
 import reques from "@/utils/respone";
@@ -46,24 +46,32 @@ export default {
         this.departmentNum=data.data.data.length
       }
     },
-    async getdepartment() {
+    getdepartment() {
       
-      const data = await reques.get("/user/getMatterByUsername/"+this.username);
+      axios.get("/user/getMatterByUsername/"+this.username).then(res=>{
+        
+        if (res.data.result == true) {
+           this.department=res.data.data
+           this.$store.commit('setMyData1', { key: this.department });
+           localStorage.setItem('myDataKey1', this.department);
+        }
+      })
       // 判断是否能拿到数据,拿到数据后使用map来遍历数组获得他的id号
-
-      if (data.data.result == true) {
-        this.department=data.data.data
-        this.$store.commit('setMyData1', { key: this.department });
-        localStorage.setItem('myDataKey1', this.department);
-      }
+      
     },
 
   },
-  beforeMount(){
+  mounted(){
+    
     let savedValue = localStorage.getItem('myDataKey');
     this.username=savedValue
-    this.getalldepartments();
     this.getdepartment();
+
+  },
+  beforeMount(){
+    
+    this.getalldepartments();
+    
   },
 }
 </script>

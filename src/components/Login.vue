@@ -43,6 +43,7 @@
 
 <script>
 import reques from '@/utils/respone.js'
+import axios from 'axios';
 export default {
   name: 'Login',
   data() {
@@ -70,7 +71,7 @@ export default {
 
     // 用户表数据调用
     skip() {
-      console.log(this.password)
+      
       if (this.password == '' ||this.password==null|| this.text==null || this.text == '') {
         this.$message.error('账号密码不能为空')
         return
@@ -83,13 +84,24 @@ export default {
         .then(res => {
           if (res.data.result == true) {
             
-            this.$store.commit('setMyData', { key: this.text });
-            localStorage.setItem('myDataKey', this.text);
+            
+            axios.get('/user/getMatterByUsername/'+this.text).then(respone => {
+              // this.$store.commit('setMyData', { key: null });
+              // localStorage.removeItem('myDataKey');
+               this.$store.commit('setMyData2', { key: respone.data.data });
+               localStorage.setItem('myDataKey2', respone.data.data);
+               this.$store.commit('setMyData', { key: this.text });
+               localStorage.setItem('myDataKey', this.text);
+              
+			      })
             this.$message.success('登录成功！')
             this.$router.replace('./manager')
 
           } else {
-            this.$message.error('账号密码错误')
+            if(res.data.message == "用户名不存在")
+              this.$message.error('用户名不存在，请注册！')
+            else
+              this.$message.error('用户名或密码错误！')
           }
         })
         .catch(error => {
@@ -184,6 +196,7 @@ export default {
 
       :nth-child(1) {
         font-size: 40px;
+        height: 150px;
         //background-clip: text;
         color: transparent;
         background-image: linear-gradient(120deg, #30cfd0 0%, #ebbba7 50%, #a3bded 80%);
@@ -191,6 +204,7 @@ export default {
 
       :nth-child(2) {
         font-size: 50px;
+        height: 150px;
         //background-clip: text;
         color: transparent;
         background-image: linear-gradient(-90deg, #29be0e 0%, #276ace 100%);

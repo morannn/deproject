@@ -1,11 +1,10 @@
 <template>
 	<div>
-		<div @click="dialogVisible = true">
+		<div @click="handleclick">
 			<el-card shadow="hover" class="qm_radian">
 				<i class="el-icon-plus"></i>
 			</el-card>
 		</div>
-
 		<el-dialog :visible.sync="dialogVisible" title="添加任务" width="30%">
 			<el-form :model="addTask" :rules="rules" ref="addTask">
 				<el-form-item label="标题" prop="mattername">
@@ -35,6 +34,9 @@
 				<el-form-item label="所属用户名" prop="username">
 					<el-input placeholder="请输入事件所属用户名" v-model="addTask.username"></el-input>
 				</el-form-item>
+				<el-form-item label="事件内容" prop="content">
+					<el-input placeholder="请输入事件内容" v-model="addTask.content"></el-input>
+				</el-form-item>
 				<el-form-item label="用户部门" prop="department">
 					<el-radio-group v-model="addTask.department">
 						<el-radio label="ceshi"></el-radio>
@@ -57,11 +59,13 @@
 import reques from "@/utils/respone";
 
 export default {
+	props: [ "departmentnum"],
 	name: "manager-public-add-task.vue",
 	data() {
 		return {
 			dialogVisible: false,
 			addTaskList: [],
+			savedValue: localStorage.getItem('myDataKey2'),
 			addTask: {
 				mattername: '',
 				matterstatus: '',
@@ -69,6 +73,7 @@ export default {
 				yujitime: '',
 				endtime: '',
 				username: '',
+				content:'',
 				department: '',
 				
 			},
@@ -117,11 +122,26 @@ export default {
 		}
 	},
 	methods: {
+		handleclick(){
+			
+			if(this.departmentnum==1){
+				this.dialogVisible = true
+			}else{
+				if(this.savedValue=="admin"){
+					this.dialogVisible = true
+				}else{
+					this.$message.error('暂时无权限新增！')
+				}
+				
+			}
+			
+		},
 		submitForm(formName) {
 			this.$refs[formName].validate((valid) => {
 				// 如果是true就进行数据的传出
 				// console.log(valid);
 				if (valid) {
+					const content=this.addTask.content
 					reques.post('/matter/add', {
 						mattername: this.addTask.mattername,
 						matterstatus: this.addTask.matterstatus,
@@ -132,10 +152,17 @@ export default {
 						department: this.addTask.department,
 						
 					}).then(respone => {
-						// console.log(respone.data.data);
-						// 将获取的数据传给父组件
-						let str = this.addTask.estimate;
-						this.$emit('respones', respone.data.data, str)
+						
+						const id=respone.data.data.id
+				
+						reques.post('/content/addContent',{
+							id:id,
+							mattercontent:content
+						}).then(respone => {
+
+							let str = this.addTask.estimate;
+							this.$emit('respones', respone.data.data, str)
+						})
 					})
 					this.$message({
 						type: 'success',

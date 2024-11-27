@@ -1,21 +1,25 @@
 <template>
   <div class="container">
     <div class="row">
-      
-      <div v-if="departmentnum>1" class="column" v-for="(value, index) in department" :key="value.id">
-        部门名：{{ value }}(列名为事件状态)
-      
-        <ManagerMainFlow1 ref="flow1" :alldepartment="value" :departmentnum="departmentnum"></ManagerMainFlow1>
-        <!-- 确保组件ManagerMainFlow已经被导入并注册 -->
+      <div 
+        v-if="departmentnum > 1" 
+        class="department-box" 
+        v-for="(value, index) in department" 
+        :key="value.id"
+      >
+        <div class="department-name">
+          部门名：{{ value }}(列名为事件状态)
+        </div>
+        <ManagerMainFlow1 ref="flow1" :alldepartment="value" :departmentnum="departmentnum" />
       </div>
-      <div v-if="departmentnum==1" class="column">
-        部门名：{{ department }}
-        <ManagerMainFlow1 @refresh-flow1="refreshManagerMainFlow1" :department="department" :departmentnum="departmentnum"></ManagerMainFlow1>
-        <!-- 确保组件ManagerMainFlow已经被导入并注册 -->
+      <div v-if="departmentnum == 1" class="department-box">
+        <div class="department-name">
+          部门名：{{ department }}(列名为事件状态)
+        </div>
+        <ManagerMainFlow1 @refresh-flow1="refreshManagerMainFlow1" :department="department" :departmentnum="departmentnum" />
       </div>
     </div>
   </div>
-
 </template>
 
 
@@ -61,11 +65,33 @@ export default {
 .row {
   display: flex;
 }
-
+.department_name {
+  margin-bottom: 10px; /* 添加一些底部边距 */
+  font-weight: bold; /* 加粗字体 */
+  /* 其他样式根据需要添加 */
+}
 .column {
   flex-grow: 1; /* 每一列的大小相同 */
   padding: 10px;
   box-sizing: border-box;
+}
+.container {
+  display: flex;
+  flex-direction: column; /* 每一行一个框 */
+  gap: 16px; /* 每个框之间的间距 */
+}
+
+.department-box {
+  border: 1px solid #ddd; /* 边框颜色 */
+  border-radius: 8px; /* 圆角 */
+  padding: 16px; /* 内边距 */
+  background-color: #f9f9f9; /* 背景色 */
+}
+
+.department-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 12px; /* 部门名称和组件之间的间距 */
 }
 
 </style>
