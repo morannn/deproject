@@ -67,18 +67,6 @@ export default {
         this.checked = true
       }
     },
-    // // 储存账号密码在本地
-    // stockpile() {
-    //   if (this.checked) {
-    //     // localStorage.setItem(this.text, this.password);
-    //     localStorage.setItem("username", this.text)
-    //     localStorage.setItem("password", this.password)
-    //     localStorage.setItem("checked", true)
-    //   } else {
-    //     // 如果忘记密码为假，那就清除所有数据
-    //     localStorage.clear()
-    //   }
-    // },
 
     // 用户表数据调用
     skip() {
@@ -93,9 +81,9 @@ export default {
         })
         .then(res => {
           if (res.data.result == true) {
-
-
-            // 根据router文件的index.js里面的注册的path地址的注册明跳转
+            
+            this.$store.commit('setMyData', { key: this.text });
+            localStorage.setItem('myDataKey', this.text);
             this.$router.replace('./manager')
 
           } else {

@@ -7,10 +7,7 @@
             <el-main style="display: grid;">
                 <manager-main :activeName.sync='activeName'></manager-main>
             </el-main>
-
     </el-container>
-
-
 </template>
 
 <script>

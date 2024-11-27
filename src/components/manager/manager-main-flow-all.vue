@@ -1,9 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="column" v-for="(value, index) in department" :key="value.id">
-        {{ value }}
-        <ManagerMainFlow1 :department="value"></ManagerMainFlow1>
+      
+      <div v-if="departmentnum>1" class="column" v-for="(value, index) in department" :key="value.id">
+        部门名：{{ value }}(列名为事件状态)
+        <ManagerMainFlow1 ref="flow1" :department="value" :departmentnum="departmentnum"></ManagerMainFlow1>
+        <!-- 确保组件ManagerMainFlow已经被导入并注册 -->
+      </div>
+      <div v-if="departmentnum==1" class="column">
+        部门名：{{ department }}
+        <ManagerMainFlow1 @refresh-flow1="refreshManagerMainFlow1" :department="department" :departmentnum="departmentnum"></ManagerMainFlow1>
         <!-- 确保组件ManagerMainFlow已经被导入并注册 -->
       </div>
     </div>
@@ -22,27 +28,26 @@ export default {
   props:["department","departmentnum"],
   data(){
     return {
-      // department:[],
+      username:''
   }
   },
+
   mounted() {
     this.delayedAction();
     this.Port_calls();
   },
   methods:{
+    refreshManagerMainFlow1() {
+      this.$refs.flow1.refreshData();
+    },
     async delayedAction() {
       // 设置延时，例如2秒后执行
       setTimeout(() => {
         // 延时执行的代码
-        console.log(this.department)
-        console.log(this.departmentnum)
+        
       }, 500);
     },
-
-
   }
-
-
 }
 </script>
 
