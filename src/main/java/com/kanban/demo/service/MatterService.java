@@ -19,6 +19,9 @@ public class MatterService {
     @Autowired
     Mattermapper mattermapper;
 
+    @Autowired
+    Contentmapper contentmapper;
+
     public Msg getMatterByName(String name){
         Msg msg=new Msg();
         matter matter=mattermapper.selectMatterByName(name);
@@ -35,15 +38,7 @@ public class MatterService {
 
     public Msg insert(matter matter){
         Msg msg=new Msg();
-        String mattername=matter.getMattername();
-        String matterstatus=matter.getMatterstatus();
-        Date begintime=matter.getBegintime();
-        Date yujitime=matter.getYujitime();
-        Date endtime=matter.getEndtime();
-        String username=matter.getUsername();
-        String department=matter.getDepartment();
-        int id=mattermapper.insertSelective(mattername,matterstatus,begintime,yujitime,endtime,username,department);
-
+        int id=mattermapper.insertSelective(matter);
         if(id==0){
             msg.setMessage("新增失败！");
             msg.setResult(false);
@@ -138,6 +133,7 @@ public class MatterService {
 
         ArrayList<matter> matters=new ArrayList<>();
         matters=mattermapper.getMattersByDepartmentAndUsername(username,department,status);
+
         if(matters.size()==0){
             msg.setMessage("查询失败！");
             msg.setResult(false);

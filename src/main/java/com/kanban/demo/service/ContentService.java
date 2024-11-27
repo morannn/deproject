@@ -22,4 +22,27 @@ public class ContentService {
         msg.setMessage("查询成功！");
         return msg;
     }
+
+    public Msg insertContent(content content){
+        Msg msg=new Msg();
+        int num=contentmapper.insertContent(content.getId(),content.getMattercontent());
+        msg.setResult(true);
+        msg.setData(content);
+        msg.setMessage("新增成功！");
+        return msg;
+    }
+
+    public Msg updateContent(int id,String content){
+        Msg msg=new Msg();
+        int num=contentmapper.updateContent(id,content);
+        if(num>0){
+            msg.setResult(true);
+            msg.setData(content);
+            msg.setMessage("修改成功！");
+        }else{
+            msg.setResult(false);
+            msg.setMessage("修改失败！");
+        }
+        return msg;
+    }
 }

@@ -3,6 +3,7 @@ package com.kanban.demo.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.kanban.demo.entity.login;
 import com.kanban.demo.entity.matter;
+import com.kanban.demo.entity.user;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
@@ -48,8 +49,8 @@ public interface Mattermapper extends BaseMapper {
     ArrayList<matter> selectMatterByDepartmentandstatus(@Param("department") String department,@Param("matterstatus") String matterstatus);
 
     @Insert("insert into matter (mattername,matterstatus,begintime,yujitime,endtime,username,department) value (#{mattername},#{matterstatus},#{begintime},#{yujitime},#{endtime},#{username},#{department})")
-    int insertSelective (@Param("mattername")String mattername, @Param("matterstatus")String matterstatus,@Param("begintime") Date begintime,@Param("yujitime")Date yujitime,@Param("endtime") Date endtime,
-                        @Param("username")String username,@Param("department") String department);
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int insertSelective(matter matter);
 
     @Select("select department from matter where id=#{id}")
     String getDepartmentByid(@Param("id")int id);

@@ -19,19 +19,24 @@ public class UserService {
         String department=usermapper.getDepartmentByUsername(username);
 
         if(department.equals("")){
-            msg.setMessage("删除失败！");
+            msg.setMessage("获取失败！");
             msg.setResult(false);
         }else{
             msg.setData(department);
             msg.setResult(true);
-            msg.setMessage("删除成功！");
+            msg.setMessage("获取成功！");
         }
         return msg;
     }
 
     public Msg insertUser(String username,String department){
         Msg msg=new Msg();
-        int num=usermapper.insertUser(username,department);
+        int num;
+        if(department.equals("admin")){
+            num=usermapper.insertUser(username,department,1);
+        }else{
+            num=usermapper.insertUser(username,department,0);
+        }
         user user=usermapper.selectUserByName(username);
         if(num==0){
             msg.setMessage("注册失败！");

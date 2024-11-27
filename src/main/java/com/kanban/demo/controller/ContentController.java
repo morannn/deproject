@@ -1,6 +1,7 @@
 package com.kanban.demo.controller;
 
 import com.kanban.demo.entity.Msg;
+import com.kanban.demo.entity.content;
 import com.kanban.demo.entity.login;
 import com.kanban.demo.service.ContentService;
 import com.kanban.demo.service.LoginService;
@@ -19,6 +20,14 @@ public class ContentController {
         return contentService.getContentById(id);
     }
 
+    @PostMapping("/addContent")
+    public Msg addContent(@RequestBody content content) {
+        return contentService.insertContent(content);
+    }
 
+    @PostMapping("/updateContent")
+    public Msg updateContent(@RequestBody content content) {
+        return contentService.updateContent(content.getId(),content.getMattercontent());
+    }
 
 }
