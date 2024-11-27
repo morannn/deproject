@@ -20,4 +20,9 @@ public class LoginController {
     public Msg doLogin(@RequestBody login login) {
         return loginService.doLogin(login);
     }
+
+    @PostMapping("/register")
+    public Msg insertLogin(@RequestBody login login) {
+        return loginService.insertLogin(login);
+    }
 }

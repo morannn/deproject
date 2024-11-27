@@ -13,7 +13,6 @@ public class UserService {
     @Autowired
     Usermapper usermapper;
 
-<<<<<<< HEAD
     public Msg getDepartmentByUsername(String username){
         Msg msg=new Msg();
 
@@ -30,8 +29,21 @@ public class UserService {
         return msg;
     }
 
-=======
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
+    public Msg insertUser(String username,String department){
+        Msg msg=new Msg();
+        int num=usermapper.insertUser(username,department);
+        user user=usermapper.selectUserByName(username);
+        if(num==0){
+            msg.setMessage("注册失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(user);
+            msg.setResult(true);
+            msg.setMessage("注册成功！");
+        }
+        return msg;
+    }
+
     public Msg getUserByName(String name){
         Msg msg=new Msg();
         user user=usermapper.selectUserByName(name);

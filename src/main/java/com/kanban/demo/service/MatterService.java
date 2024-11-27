@@ -5,18 +5,12 @@ import com.kanban.demo.entity.Msg;
 import com.kanban.demo.entity.matter;
 import com.kanban.demo.mapper.Contentmapper;
 import com.kanban.demo.mapper.Mattermapper;
-<<<<<<< HEAD
 import org.apache.ibatis.annotations.Param;
-=======
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Date;
-=======
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 import java.util.List;
 
 @Service
@@ -39,7 +33,6 @@ public class MatterService {
         return msg;
     }
 
-<<<<<<< HEAD
     public Msg insert(matter matter){
         Msg msg=new Msg();
         String mattername=matter.getMattername();
@@ -63,8 +56,6 @@ public class MatterService {
         return msg;
     }
 
-=======
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
     public Msg getMatterById(int id){
         Msg msg=new Msg();
         matter matter=mattermapper.selectMatterById(id);
@@ -141,7 +132,6 @@ public class MatterService {
         }
         return msg;
     }
-<<<<<<< HEAD
 
     public Msg getMattersByDepartmentAndUsername(String username,String department,String status){
         Msg msg=new Msg();
@@ -187,14 +177,7 @@ public class MatterService {
         Date endtime=matter.getEndtime();
         String username=matter.getUsername();
         String department=matter.getDepartment();
-        System.out.println(id);
-        System.out.println(mattername);
-        System.out.println(matterstatus);
-        System.out.println(begintime);
-        System.out.println(yujitime);
-        System.out.println(endtime);
-        System.out.println(username);
-        System.out.println(department);
+
         mattermapper.updateMatter(mattername,matterstatus,begintime,yujitime,endtime,username,department,id);
         matter matter1=mattermapper.selectMatterById(id);
         if(matter1==null){
@@ -242,6 +225,4 @@ public class MatterService {
     }
 
 
-=======
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 }

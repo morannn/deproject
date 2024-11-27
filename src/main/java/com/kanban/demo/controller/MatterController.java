@@ -1,21 +1,11 @@
 package com.kanban.demo.controller;
 
 import com.kanban.demo.entity.Msg;
-<<<<<<< HEAD
 import com.kanban.demo.entity.matter;
 import com.kanban.demo.service.ContentService;
 import com.kanban.demo.service.MatterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-=======
-import com.kanban.demo.service.ContentService;
-import com.kanban.demo.service.MatterService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 
 @RestController
 @RequestMapping("/matter")
@@ -53,7 +43,6 @@ public class MatterController {
     public Msg getMatterByDepartmentandStatus(@PathVariable String department,@PathVariable String status) {
         return matterService.getMatterByDepartmentandstatus(department,status);
     }
-<<<<<<< HEAD
 
     @PostMapping("/add")
     public Msg addMatter(@RequestBody matter matter) {
@@ -85,6 +74,4 @@ public class MatterController {
         return matterService.getMattersByDepartmentAndUsername(username,department,status);
     }
 
-=======
->>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 }

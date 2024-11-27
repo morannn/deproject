@@ -33,4 +33,22 @@ public class LoginService {
         }
         return msg;
     }
+
+    public Msg insertLogin(login login){
+        Msg msg = new Msg();
+        login userExist=loginmapper.selectLoginByName(login.getUsername());
+        if (userExist==null){
+            int num = loginmapper.insertLogin(login.getUsername(),login.getPassword());
+            login res=loginmapper.selectLoginByName(login.getUsername());
+            msg.setResult(true);
+            msg.setMessage("注册成功!");
+            msg.setData(res);
+        }else {
+            msg.setResult(false);//失败
+            msg.setMessage("用户名已存在！");
+            msg.setData(null);
+
+        }
+        return msg;
+    }
 }

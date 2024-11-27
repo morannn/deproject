@@ -13,7 +13,7 @@ public interface Loginmapper {
     login selectLoginByName(@Param("username") String username);
 
     @Insert("insert into login(username,password) value (#{username},#{password})")
-    login selectfindBy(@Param("username")String username,@Param("password")String password);
+    int insertLogin(@Param("username")String username,@Param("password")String password);
 
     @Select ("select password from login where username = #{username} and password=#{password}")
     login login(@Param("username")String username,@Param("password")String password);
