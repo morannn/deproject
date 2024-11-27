@@ -73,7 +73,7 @@ export default {
     skip() {
       
       if (this.password == '' ||this.password==null|| this.text==null || this.text == '') {
-        this.$message.error('账号密码不能为空')
+        this.$message.error('账号密码不能为空!')
         return
       }
       reques

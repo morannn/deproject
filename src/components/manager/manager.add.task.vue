@@ -41,7 +41,7 @@
 					<el-radio-group v-model="addTask.department">
 						<el-radio label="ceshi"></el-radio>
 						<el-radio label="kaifa"></el-radio>
-						<el-radio label="1"></el-radio>
+						<el-radio label="xvqiu"></el-radio>
 					</el-radio-group>
 				</el-form-item>
 				
@@ -80,19 +80,19 @@ export default {
 			rules: {
 				mattername: [{
 					required: true,
-					message: '请输入事件名称',
+					message: '请输入任务名称',
 					trigger: 'blur'
-				},],
+				}],
 				matterstatus: [{
 					required: true,
-					message: '请输入事件状态',
+					message: '请输入任务状态',
 					trigger: 'blur'
 				}],
 			
 				begintime: [{
 					type: 'date',
 					required: true,
-					message: '请输入开始时间',
+					message: '请选择开始时间',
 					trigger: 'change'
 				}],
 				yujitime: [{
@@ -109,12 +109,17 @@ export default {
 				}],
 				username: [{
 					required: true,
-					message: '请输入事件分配给的用户名',
+					message: '请输入任务分配给的用户名',
 					trigger: 'blur'
 				}],
 				department: [{
 					required: true,
 					message: '请输入该用户的部门',
+					trigger: 'blur'
+				}],
+				content: [{
+					required: true,
+					message: '请输入任务内容',
 					trigger: 'blur'
 				}],
 				

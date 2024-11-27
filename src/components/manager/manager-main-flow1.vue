@@ -169,6 +169,7 @@ methods: {
       type: 'get',
       url: '/matter/delete/' + val
     }).then(res => {
+      this.$message.success('删除成功！')
       this.fetchContentList()
       this.fetchContentList1()
       this.refresh()

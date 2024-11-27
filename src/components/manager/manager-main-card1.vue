@@ -42,7 +42,7 @@
       </span>
     </el-dialog>
     <el-dialog @close="closefunc" v-if="showModal" :visible.sync="showModal" title="修改任务" width="30%">
-			<el-form :model="title" :rules="rules" ref="title">
+			<el-form :model="dataform" :rules="rules" ref="dataform">
 				<el-form-item label="标题" prop="mattername">
 					<el-input placeholder="请输入事件名称" v-model="dataform.mattername"></el-input>
 				</el-form-item>
@@ -73,7 +73,7 @@
 					<el-radio-group v-model="dataform.department">
 						<el-radio label="ceshi"></el-radio>
 						<el-radio label="kaifa"></el-radio>
-						<el-radio label="1"></el-radio>
+						<el-radio label="xvqiu"></el-radio>
 					</el-radio-group>
 				</el-form-item>
         <el-form-item label="事件内容" prop="content">
@@ -81,7 +81,7 @@
 				</el-form-item>
 				
 				<el-form-item>
-					<el-button @click="submitForm('title')" type="primary">修改任务</el-button>
+					<el-button @click="submitForm('dataform')" type="primary">修改任务</el-button>
 					<el-button @click="resetForm()">重置</el-button>
 				</el-form-item>
 			</el-form>
@@ -107,6 +107,7 @@ export default {
       flag: false,
       text:"",
       showTextModal: false,
+      
       dataform:{
         id:this.title.id,
         mattername:this.title.mattername,
@@ -155,12 +156,30 @@ export default {
       this.dataform.content=''
 		},
     submitForm(formName) {
-      
+      console.log(formName)
 			this.$refs[formName].validate((valid) => {
 				// 如果是true就进行数据的传出
+        const temp_content=this.dataform.content
+        
 				// console.log(valid);
-				
-					axios.post('/matter/update', {
+				if(this.dataform.mattername=='')
+        this.$message.error('请输入任务名称！')
+        else if(this.dataform.matterstatus=='')
+        this.$message.error('请输入任务状态！')
+        else if(this.dataform.begintime=='')
+        this.$message.error('请选择开始时间！')
+        else if(this.dataform.yujitime=='')
+        this.$message.error('请选择预计时间！')
+        else if(this.dataform.endtime=='')
+        this.$message.error('请选择结束时间！')
+        else if(this.dataform.username=='')
+        this.$message.error('请输入任务分配给的用户名！')
+        else if(this.dataform.department=='')
+        this.$message.error('请输入该用户的部门！')
+        else if(this.dataform.content=='')
+        this.$message.error('请输入该任务的内容！')
+        else{
+          axios.post('/matter/update', {
             id:this.dataform.id,
 						mattername: this.dataform.mattername,
 						matterstatus: this.dataform.matterstatus,
@@ -173,9 +192,11 @@ export default {
 					}).then(respone => {
 						// console.log(respone.data.data);
 						// 将获取的数据传给父组件
+
             axios.post('/content/updateContent',{
+
               id:this.dataform.id,
-              mattercontent:this.dataform.content
+              mattercontent:temp_content
             }).then(respone => {
 				      
               let str = this.dataform.estimate;
@@ -191,8 +212,13 @@ export default {
            this.$refs[formName].resetFields();
            this.$emit('refresh');
            this.$emit('refresh');
+        }
+          
+        
+					
 				
 			});
+      
 		},
     updateCardData(){
 
