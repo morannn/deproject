@@ -14,6 +14,14 @@ public class UserController {
     @Autowired
     UserService userService;
 
+<<<<<<< HEAD
+    @GetMapping("/getMatterByUsername/{username}")
+    public Msg getDepartmentByUsername(@PathVariable String username) {
+        return userService.getDepartmentByUsername(username);
+    }
+
+=======
+>>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
     @GetMapping("/getByName/{username}")
     public Msg getUserByName(@PathVariable String username) {
         return userService.getUserByName(username);

@@ -17,7 +17,12 @@ public interface Usermapper {
     @Select("select ranknum from user where username = #{username}")
     user selectfinduranknum(@Param("username")String username);
 
+<<<<<<< HEAD
+    @Select("select department from user where username=#{username}")
+    String getDepartmentByUsername(@Param("username")String username);
+=======
 
+>>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 
 }
 

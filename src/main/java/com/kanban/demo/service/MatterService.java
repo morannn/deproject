@@ -5,10 +5,18 @@ import com.kanban.demo.entity.Msg;
 import com.kanban.demo.entity.matter;
 import com.kanban.demo.mapper.Contentmapper;
 import com.kanban.demo.mapper.Mattermapper;
+<<<<<<< HEAD
+import org.apache.ibatis.annotations.Param;
+=======
+>>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+import java.util.Date;
+=======
+>>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 import java.util.List;
 
 @Service
@@ -31,6 +39,32 @@ public class MatterService {
         return msg;
     }
 
+<<<<<<< HEAD
+    public Msg insert(matter matter){
+        Msg msg=new Msg();
+        String mattername=matter.getMattername();
+        String matterstatus=matter.getMatterstatus();
+        Date begintime=matter.getBegintime();
+        Date yujitime=matter.getYujitime();
+        Date endtime=matter.getEndtime();
+        String username=matter.getUsername();
+        String department=matter.getDepartment();
+        int id=mattermapper.insertSelective(mattername,matterstatus,begintime,yujitime,endtime,username,department);
+
+        if(id==0){
+            msg.setMessage("新增失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(matter);
+            msg.setResult(true);
+            msg.setMessage("新增成功！");
+        }
+
+        return msg;
+    }
+
+=======
+>>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
     public Msg getMatterById(int id){
         Msg msg=new Msg();
         matter matter=mattermapper.selectMatterById(id);
@@ -107,4 +141,107 @@ public class MatterService {
         }
         return msg;
     }
+<<<<<<< HEAD
+
+    public Msg getMattersByDepartmentAndUsername(String username,String department,String status){
+        Msg msg=new Msg();
+
+        ArrayList<matter> matters=new ArrayList<>();
+        matters=mattermapper.getMattersByDepartmentAndUsername(username,department,status);
+        if(matters.size()==0){
+            msg.setMessage("查询失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(matters);
+            msg.setResult(true);
+            msg.setMessage("查询成功！");
+        }
+        return msg;
+    }
+
+    public Msg deleteMatter(int id){
+        Msg msg=new Msg();
+
+        matter matter=new matter();
+        matter=(matter)(getMatterById(id).getData());
+        int num=mattermapper.deleteMatter(id);
+        if(num==0){
+            msg.setMessage("删除失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(matter);
+            msg.setResult(true);
+            msg.setMessage("删除成功！");
+        }
+        return msg;
+    }
+
+    public Msg updateMatter(matter matter){
+        Msg msg=new Msg();
+        int id=matter.getId();
+
+        String mattername=matter.getMattername();
+        String matterstatus=matter.getMatterstatus();
+        Date begintime=matter.getBegintime();
+        Date yujitime=matter.getYujitime();
+        Date endtime=matter.getEndtime();
+        String username=matter.getUsername();
+        String department=matter.getDepartment();
+        System.out.println(id);
+        System.out.println(mattername);
+        System.out.println(matterstatus);
+        System.out.println(begintime);
+        System.out.println(yujitime);
+        System.out.println(endtime);
+        System.out.println(username);
+        System.out.println(department);
+        mattermapper.updateMatter(mattername,matterstatus,begintime,yujitime,endtime,username,department,id);
+        matter matter1=mattermapper.selectMatterById(id);
+        if(matter1==null){
+            msg.setMessage("修改失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(matter1);
+            msg.setResult(true);
+            msg.setMessage("修改成功！");
+        }
+
+        return msg;
+    }
+
+    public Msg getDepartmentByid(int id){
+        Msg msg=new Msg();
+
+        String department=mattermapper.getDepartmentByid(id);
+
+        if(department==""){
+            msg.setMessage("删除失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(department);
+            msg.setResult(true);
+            msg.setMessage("删除成功！");
+        }
+        return msg;
+    }
+
+    public Msg updateMatterStatus(int id,String status){
+        Msg msg=new Msg();
+
+        int num=mattermapper.updateMatterStatus(id,status);
+
+        if(num==0){
+            msg.setMessage("删除失败！");
+            msg.setResult(false);
+        }else{
+            msg.setData(num);
+            msg.setResult(true);
+            msg.setMessage("删除成功！");
+        }
+        return msg;
+    }
+
+
+=======
+>>>>>>> c24ce7f5d7166d86a3373657841fb9d2f934a080
 }
