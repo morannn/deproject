@@ -2,7 +2,10 @@ package com.kanban.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -10,6 +13,9 @@ import java.util.Date;
 
 @Data
 @TableName(value = "matter")
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(description = "这是matter类")
 public class matter {
     private Integer id;
     private String mattername;
