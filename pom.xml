@@ -28,6 +28,7 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
+<<<<<<< HEAD
         <!-- Swagger生成接口文档和接口测试,Knife4j为增强版 -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
@@ -39,6 +40,9 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+=======
+
+>>>>>>> b5dc19de15dcf86a592376c6ba27475bc7288e1a
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

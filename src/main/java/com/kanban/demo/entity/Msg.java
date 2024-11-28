@@ -1,6 +1,9 @@
 package com.kanban.demo.entity;
 
+<<<<<<< HEAD
 import io.swagger.annotations.ApiModel;
+=======
+>>>>>>> b5dc19de15dcf86a592376c6ba27475bc7288e1a
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+<<<<<<< HEAD
 @ApiModel(description = "这是Msg类")
+=======
+>>>>>>> b5dc19de15dcf86a592376c6ba27475bc7288e1a
 public class Msg {
     Object data;//数据域, 可以存放User，Flow，Task，Story, List<Rule>
     boolean result;//查询结果是成功还是失败,true表示成功，false表示失败
