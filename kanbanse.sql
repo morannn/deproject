@@ -11,7 +11,7 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 27/11/2024 17:09:38
+ Date: 30/11/2024 02:51:44
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ INSERT INTO `content` VALUES (4, '测试后端返回数据：控制台输出后�
 INSERT INTO `content` VALUES (5, '开发登录界面：与数据库交互判断登录逻辑');
 INSERT INTO `content` VALUES (6, '开发注册界面：与数据库交互判断注册逻辑');
 INSERT INTO `content` VALUES (7, '测试登录界面：使用junit测试登录模块');
-INSERT INTO `content` VALUES (8, '测试注册界面：使用junit测试注册模块');
+INSERT INTO `content` VALUES (8, '111111');
 INSERT INTO `content` VALUES (9, '开发看板界面：开发看板模块的前后端');
 INSERT INTO `content` VALUES (10, '前端接口交互更正：前后端接口交互的类型有问题，需要更正');
 INSERT INTO `content` VALUES (11, '需求设计');
@@ -48,6 +48,12 @@ INSERT INTO `content` VALUES (58, 'test');
 INSERT INTO `content` VALUES (59, 'test');
 INSERT INTO `content` VALUES (60, 'test1');
 INSERT INTO `content` VALUES (61, 'test');
+INSERT INTO `content` VALUES (62, 'test');
+INSERT INTO `content` VALUES (63, 'test111');
+INSERT INTO `content` VALUES (64, 'aa');
+INSERT INTO `content` VALUES (65, '11');
+INSERT INTO `content` VALUES (66, '1');
+INSERT INTO `content` VALUES (67, '555');
 
 -- ----------------------------
 -- Table structure for login
@@ -66,6 +72,8 @@ INSERT INTO `login` VALUES ('test', 'test');
 INSERT INTO `login` VALUES ('kaifa', 'kaifa');
 INSERT INTO `login` VALUES ('admin', 'admin');
 INSERT INTO `login` VALUES ('xvqiu', 'xvqiu');
+INSERT INTO `login` VALUES ('abc', 'abc');
+INSERT INTO `login` VALUES ('bcd', 'bcd');
 
 -- ----------------------------
 -- Table structure for matter
@@ -77,27 +85,25 @@ CREATE TABLE `matter`  (
   `matterstatus` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `begintime` date NULL DEFAULT NULL,
   `yujitime` date NULL DEFAULT NULL,
-  `endtime` date NULL DEFAULT NULL,
   `username` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `department` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of matter
 -- ----------------------------
-INSERT INTO `matter` VALUES (1, '测试看板数据', 'ing', '2022-12-29', '2024-11-02', '2024-11-08', 'test', 'ceshi');
-INSERT INTO `matter` VALUES (2, '开发看板两周数据汇总', 'nob', '2024-11-21', '2024-11-06', '2024-11-20', 'li', 'kaifa');
-INSERT INTO `matter` VALUES (3, '测试UI稳定', 'ing', '2024-10-30', '2024-11-06', '2024-11-13', 'test', 'ceshi');
-INSERT INTO `matter` VALUES (4, '测试后端返回数据', 'nob', '2023-01-11', '2024-11-15', '2024-11-21', 'wang', 'ceshi');
-INSERT INTO `matter` VALUES (5, '开发登录界面', 'end', '2024-11-21', '2024-11-06', '2024-11-20', 'li', 'kaifa');
-INSERT INTO `matter` VALUES (6, '开发注册界面', 'end', '2024-11-18', '2024-11-18', '2024-11-18', 'test', 'kaifa');
-INSERT INTO `matter` VALUES (7, '测试登录界面', 'end', '2024-11-18', '2024-11-18', '2024-11-18', 'test', 'ceshi');
-INSERT INTO `matter` VALUES (8, '测试注册界面', 'ing', '2024-11-18', '2024-11-18', '2024-11-18', 'test', 'ceshi');
-INSERT INTO `matter` VALUES (9, '开发看板界面', 'ing', '2024-11-18', '2024-11-18', '2024-11-18', 'wang', 'kaifa');
-INSERT INTO `matter` VALUES (10, '前端接口交互更正', 'ing', '2024-11-18', '2024-11-18', '2024-11-18', 'test', 'kaifa');
-INSERT INTO `matter` VALUES (11, '需求设计', 'end', '2024-11-18', '2024-11-18', '2024-11-18', 'xvqiu', 'xvqiu');
-INSERT INTO `matter` VALUES (61, 'test', 'ing', '2024-11-26', '2024-11-26', '2024-11-26', 'test', 'ceshi');
+INSERT INTO `matter` VALUES (1, '测试看板数据', 'end', '2022-12-29', '2024-11-02', 'test', 'test');
+INSERT INTO `matter` VALUES (2, '开发看板两周数据汇总', 'nob', '2024-11-21', '2024-11-06', 'li', 'program');
+INSERT INTO `matter` VALUES (3, '测试UI稳定', 'end', '2024-10-24', '2024-10-31', 'test', 'test');
+INSERT INTO `matter` VALUES (4, '测试后端返回数据', 'end', '2023-01-11', '2024-11-15', 'wang', 'test');
+INSERT INTO `matter` VALUES (5, '开发登录界面', 'end', '2024-11-21', '2024-11-06', 'li', 'program');
+INSERT INTO `matter` VALUES (6, '开发注册界面', 'end', '2024-11-18', '2024-11-18', 'test', 'program');
+INSERT INTO `matter` VALUES (7, '测试登录界面', 'end', '2024-11-18', '2024-11-18', 'test', 'test');
+INSERT INTO `matter` VALUES (8, '测试注册界面', 'ing', '2024-11-15', '2024-11-15', 'test', 'test');
+INSERT INTO `matter` VALUES (9, '开发看板界面', 'ing', '2024-11-18', '2024-11-18', 'wang', 'program');
+INSERT INTO `matter` VALUES (10, '前端接口交互更正', 'ing', '2024-11-18', '2024-11-18', 'test', 'program');
+INSERT INTO `matter` VALUES (11, '需求设计', 'end', '2024-11-18', '2024-11-18', 'xvqiu', 'demand');
 
 -- ----------------------------
 -- Table structure for user
@@ -112,10 +118,12 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('test', 'ceshi', 0);
-INSERT INTO `user` VALUES ('kaifa', 'kaifa', 0);
-INSERT INTO `user` VALUES ('ceshi', 'ceshi', 0);
+INSERT INTO `user` VALUES ('test', 'test', 0);
+INSERT INTO `user` VALUES ('kaifa', 'program', 0);
+INSERT INTO `user` VALUES ('ceshi', 'test', 0);
 INSERT INTO `user` VALUES ('admin', 'admin', 1);
-INSERT INTO `user` VALUES ('xvqiu', 'xvqiu', 0);
+INSERT INTO `user` VALUES ('xvqiu', 'demand', 0);
+INSERT INTO `user` VALUES ('abc', 'test', 0);
+INSERT INTO `user` VALUES ('bcd', 'test', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

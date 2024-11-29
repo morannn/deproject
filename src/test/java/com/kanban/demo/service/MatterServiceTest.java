@@ -180,11 +180,11 @@ class MatterServiceTest {
         String matterstatus=matter.getMatterstatus();
         Date begintime=matter.getBegintime();
         Date yujitime=matter.getYujitime();
-        Date endtime=matter.getEndtime();
+        
         String username=matter.getUsername();
         String department=matter.getDepartment();
 
-        mattermapper.updateMatter(mattername,matterstatus,begintime,yujitime,endtime,username,department,id);
+        mattermapper.updateMatter(mattername,matterstatus,begintime,yujitime,username,department,id);
         matter matter1=mattermapper.selectMatterById(id);
         if(matter1==null){
             msg.setMessage("修改失败！");
@@ -198,21 +198,21 @@ class MatterServiceTest {
         return msg;
     }
     @Test
-    Msg getDepartmentByid(int id){
+    public void getDepartmentByid(){
         Msg msg=new Msg();
-
-        String department=mattermapper.getDepartmentByid(id);
+        int testid=1;
+        String department=mattermapper.getDepartmentByid(testid);
 
         if(department==""){
-            msg.setMessage("删除失败！");
+            msg.setMessage("获取失败！");
             msg.setResult(false);
         }else{
             msg.setData(department);
             msg.setResult(true);
-            msg.setMessage("删除成功！");
+            msg.setMessage("获取成功！");
         }
         Assertions.assertEquals(department,"ceshi");
-        return msg;
+
     }
 
     @Test

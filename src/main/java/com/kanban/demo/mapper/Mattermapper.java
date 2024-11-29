@@ -38,8 +38,8 @@ public interface Mattermapper extends BaseMapper {
     @Select("select * from matter")
     ArrayList<matter> selectAllMatters();
 
-    @Select("update matter set mattername=#{mattername} ,matterstatus=#{matterstatus} ,begintime=#{begintime} ,yujitime=#{yujitime} , endtime=#{endtime} , username=#{username} , department=#{department} where id=#{id}")
-    void updateMatter(@Param("mattername")String mattername, @Param("matterstatus")String matterstatus,@Param("begintime") Date begintime,@Param("yujitime")Date yujitime,@Param("endtime") Date endtime,
+    @Select("update matter set mattername=#{mattername} ,matterstatus=#{matterstatus} ,begintime=#{begintime} ,yujitime=#{yujitime}  , username=#{username} , department=#{department} where id=#{id}")
+    void updateMatter(@Param("mattername")String mattername, @Param("matterstatus")String matterstatus,@Param("begintime") Date begintime,@Param("yujitime")Date yujitime,
                      @Param("username")String username,@Param("department") String department,@Param("id")int id);
 
     @Update("update matter set matterstatus =#{status} where id=#{id}")
@@ -48,7 +48,7 @@ public interface Mattermapper extends BaseMapper {
     @Select("select * from matter where department=#{department} and matterstatus=#{matterstatus}")
     ArrayList<matter> selectMatterByDepartmentandstatus(@Param("department") String department,@Param("matterstatus") String matterstatus);
 
-    @Insert("insert into matter (mattername,matterstatus,begintime,yujitime,endtime,username,department) value (#{mattername},#{matterstatus},#{begintime},#{yujitime},#{endtime},#{username},#{department})")
+    @Insert("insert into matter (mattername,matterstatus,begintime,yujitime,username,department) value (#{mattername},#{matterstatus},#{begintime},#{yujitime},#{username},#{department})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertSelective(matter matter);
 

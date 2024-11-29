@@ -169,11 +169,11 @@ public class MatterService {
         String matterstatus=matter.getMatterstatus();
         Date begintime=matter.getBegintime();
         Date yujitime=matter.getYujitime();
-        Date endtime=matter.getEndtime();
+
         String username=matter.getUsername();
         String department=matter.getDepartment();
 
-        mattermapper.updateMatter(mattername,matterstatus,begintime,yujitime,endtime,username,department,id);
+        mattermapper.updateMatter(mattername,matterstatus,begintime,yujitime,username,department,id);
         matter matter1=mattermapper.selectMatterById(id);
         if(matter1==null){
             msg.setMessage("修改失败！");
